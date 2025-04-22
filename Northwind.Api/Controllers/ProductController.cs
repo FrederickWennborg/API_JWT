@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Northwind.Api.Contexts;
 using Northwind.Api.DTOs;
@@ -23,6 +24,7 @@ namespace Northwind.Api.Controllers
         //Vi ska såklart använda services! 
 
         // GET: api/<ProductController>
+        [Authorize(Roles = "Admin")]
         [HttpGet]
         public async Task<ActionResult<List<ProductReadDTO>>> GetAll()
         {
@@ -82,6 +84,8 @@ namespace Northwind.Api.Controllers
         }
 
         // POST api/<ProductController>
+
+        [Authorize(Roles = "Admin")]
         [HttpPost]
         public async Task<ActionResult> Post(ProductCreateDTO productDto)
         {
